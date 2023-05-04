@@ -1,0 +1,20 @@
+﻿@model MPersonne;
+
+
+<form asp-action="Ajouter">
+    <div>
+        <label asp-for="nomPersonne">Nom</label>
+        <input asp-for="nomPersonne" />
+    </div>
+    <div>
+        <label asp-for="prenomPersonne">Prénom</label>
+        <input asp-for="prenomPersonne" />
+    </div>
+    <div>
+        <label asp-for="mdp">MDP</label>
+        <input asp-for="mdp" />
+    </div>
+    <div>
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+</form>

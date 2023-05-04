@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Personnes Page";
+    @model IEnumerable<MPersonne>;
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Coucou.</p>
+    @foreach (var p in Model)
+    {
+        <p>@p.nomPersonne @p.prenomPersonne</p>
+    }
+
+    <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Creer">Ajouter une personne</a>
+
+
+</div>
