@@ -9,7 +9,7 @@
     <p>Coucou.</p>
     @foreach (var p in Model)
     {
-        <p>@p.nomPersonne @p.prenomPersonne</p>
+        <p>@p.nomPersonne @p.prenomPersonne <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="{id?}" />Effacer une personne</p>
     }
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Creer">Ajouter une personne</a>

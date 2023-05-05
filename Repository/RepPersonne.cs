@@ -60,5 +60,17 @@ namespace RazorLogin.Repository
             int result = RequestAddPersonne.ExecuteNonQuery();
 
         }
+
+        public void deletePersonne(MPersonne effacePersonne)
+        {
+            SqlCommand RequestDeletePersonne = activeConnexion.CreateCommand();
+            RequestDeletePersonne.CommandText = "DELETE from personne WHERE idPersonne = @idPersonne";
+
+            SqlParameter id = RequestDeletePersonne.Parameters.Add("@idPersonne", SqlDbType.VarChar);
+
+            id.Value = effacePersonne.idPersonne;
+
+            int result = RequestDeletePersonne.ExecuteNonQuery();
+        }
     }
 }

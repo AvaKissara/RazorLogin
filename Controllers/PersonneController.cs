@@ -30,6 +30,7 @@ namespace RazorLogin.Controllers
 
         }
 
+     
 
         public IActionResult Creer()
         {
@@ -48,6 +49,26 @@ namespace RazorLogin.Controllers
             dataPersonnes.addPersonne(nouvellePersonne);
         }
 
+        public IActionResult Effacer()
+        {
+            IEnumerable<MPersonne> personnes = this.GetPersonnes();
+            return View(personnes);
+        }
+
+        [HttpGet]
+        public IActionResult Effacer([Bind("idPersonne")] MPersonne effacePersonne)
+        {
+            this.deletePersonne(effacePersonne);
+
+            IEnumerable<MPersonne> personnes = this.GetPersonnes();
+            return View(personnes);
+        }
+
+
+        public void deletePersonne(MPersonne effacePersonne)
+        {
+            dataPersonnes.deletePersonne(effacePersonne);
+        }
 
     }
 }
