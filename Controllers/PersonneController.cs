@@ -7,6 +7,7 @@ namespace RazorLogin.Controllers
     public class PersonneController : Controller
     {
         private readonly ILogger<PersonneController> _logger;
+        RepMPersonne dataPersonnes = new RepMPersonne();
 
         public PersonneController(ILogger<PersonneController> logger)
         {
@@ -19,18 +20,13 @@ namespace RazorLogin.Controllers
             return View(personnes);
         }
 
-
-        RepMPersonne dataPersonnes = new RepMPersonne();
         public List<MPersonne> GetPersonnes()
         {
             List<MPersonne> personnes = new List<MPersonne>();
             personnes = dataPersonnes.GetPersonnes();
 
             return personnes;
-
-        }
-
-     
+        }  
 
         public IActionResult Creer()
         {
@@ -49,34 +45,24 @@ namespace RazorLogin.Controllers
             dataPersonnes.addPersonne(nouvellePersonne);
         }
 
-        //public IActionResult Effacer()
-        //{
-        //    IEnumerable<MPersonne> personnes = this.GetPersonnes();
-        //    return View(personnes);
-        //}
-
-        //[HttpGet]
-        //public IActionResult Effacer([Bind("idPersonne")] MPersonne effacePersonne)
-        //{
-        //    this.deletePersonne(effacePersonne);
-
-        //    IEnumerable<MPersonne> personnes = this.GetPersonnes();
-        //    return View(personnes);
-        //}
 
         [HttpGet]
         public IActionResult Effacer(int id)
         {
             MPersonne personneEffacee = new MPersonne();
-            personneEffacee.idPersonne = id;
-            dataPersonnes.deletePersonne(personneEffacee);
+            dataPersonnes.deletePersonne(id);
             return RedirectToAction("Personne");
-
         }
-        //    public void deletePersonne(MPersonne effacePersonne)
-        //{
-        //    dataPersonnes.deletePersonne(effacePersonne);
-        //}
 
+        public IActionResult Modifier() 
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Enregistrer(int id) 
+        {
+            return RedirectToAction("Personne");
+        }
     }
 }

@@ -9,10 +9,11 @@
     <p>Coucou.</p>
     @foreach (var p in Model)
     {
-       <p>@p.nomPersonne @p.prenomPersonne <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="@p.idPersonne">Effacer une personne</a></p>
+       <p>@p.nomPersonne @p.prenomPersonne 
+            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="@p.idPersonne">Effacer</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Modifier" asp-route-id="@p.idPersonne">Modifier</a>
+       </p>
     }
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Creer">Ajouter une personne</a>
-
-
 </div>

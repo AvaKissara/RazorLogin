@@ -1,0 +1,43 @@
+﻿@model RazorLogin.Models.MPersonne
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+<h1>Modifier</h1>
+
+<h4>test</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Enregistrer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="nomPersonne" class="control-label"></label>
+                <input asp-for="nomPersonne" class="form-control" />
+                <span asp-validation-for="nomPersonne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="prenomPersonne" class="control-label"></label>
+                <input asp-for="prenomPersonne" class="form-control" />
+                <span asp-validation-for="prenomPersonne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="mdp" class="control-label"></label>
+                <input asp-for="mdp" class="form-control" />
+                <span asp-validation-for="mdp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Personne">Revenir à la liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
