@@ -29,6 +29,7 @@ namespace RazorLogin.Repository
             while (personnes.Read())
             {
                 MPersonne unePersonne = new MPersonne();
+                unePersonne.idPersonne = personnes.GetInt32(0);
                 unePersonne.nomPersonne = $"{personnes[1]}";
                 unePersonne.prenomPersonne = $"{personnes[2]}";
                 unePersonne.mdp = $"{personnes[3]}";

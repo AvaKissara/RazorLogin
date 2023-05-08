@@ -49,26 +49,34 @@ namespace RazorLogin.Controllers
             dataPersonnes.addPersonne(nouvellePersonne);
         }
 
-        public IActionResult Effacer()
-        {
-            IEnumerable<MPersonne> personnes = this.GetPersonnes();
-            return View(personnes);
-        }
+        //public IActionResult Effacer()
+        //{
+        //    IEnumerable<MPersonne> personnes = this.GetPersonnes();
+        //    return View(personnes);
+        //}
+
+        //[HttpGet]
+        //public IActionResult Effacer([Bind("idPersonne")] MPersonne effacePersonne)
+        //{
+        //    this.deletePersonne(effacePersonne);
+
+        //    IEnumerable<MPersonne> personnes = this.GetPersonnes();
+        //    return View(personnes);
+        //}
 
         [HttpGet]
-        public IActionResult Effacer([Bind("idPersonne")] MPersonne effacePersonne)
+        public IActionResult Effacer(int id)
         {
-            this.deletePersonne(effacePersonne);
+            MPersonne personneEffacee = new MPersonne();
+            personneEffacee.idPersonne = id;
+            dataPersonnes.deletePersonne(personneEffacee);
+            return RedirectToAction("Personne");
 
-            IEnumerable<MPersonne> personnes = this.GetPersonnes();
-            return View(personnes);
         }
-
-
-        public void deletePersonne(MPersonne effacePersonne)
-        {
-            dataPersonnes.deletePersonne(effacePersonne);
-        }
+        //    public void deletePersonne(MPersonne effacePersonne)
+        //{
+        //    dataPersonnes.deletePersonne(effacePersonne);
+        //}
 
     }
 }

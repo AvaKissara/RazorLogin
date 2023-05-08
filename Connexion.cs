@@ -6,7 +6,7 @@ namespace RazorLogin
     {
         public SqlConnection GetConnexion()
         {
-            SqlConnection connexion = new SqlConnection(@"Data Source=EREBE;Initial Catalog=LoginRazor;Persist Security Info=True;User ID=sa;Password=It@chi8!");
+            SqlConnection connexion = new SqlConnection(@"Data Source=LEODAGAN;Initial Catalog=LoginRazor;Persist Security Info=True;User ID=sa;Password=It@chi8!");
             connexion.Open();
             return connexion;
         }
