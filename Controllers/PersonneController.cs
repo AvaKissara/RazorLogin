@@ -45,24 +45,36 @@ namespace RazorLogin.Controllers
             dataPersonnes.addPersonne(nouvellePersonne);
         }
 
+        public RepMPersonne GetDataPersonnes()
+        {
+            return dataPersonnes;
+        }
 
         [HttpGet]
         public IActionResult Effacer(int id)
         {
-            MPersonne personneEffacee = new MPersonne();
             dataPersonnes.deletePersonne(id);
             return RedirectToAction("Personne");
         }
 
-        public IActionResult Modifier() 
+        public IActionResult Modifier(int id) 
         {
+           
+          return View();
+        }
+
+        [HttpPost]
+        public IActionResult Enregistrer([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
+        {
+            //MPersonne modifPersonne = new MPersonne();
+            //modifPersonne.idPersonne = id;
+            this.updatePersonne(modifPersonne);
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Enregistrer(int id) 
+        public void updatePersonne(MPersonne modifPersonne)
         {
-            return RedirectToAction("Personne");
+            dataPersonnes.addPersonne(modifPersonne);
         }
     }
 }

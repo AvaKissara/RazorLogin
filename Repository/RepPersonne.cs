@@ -22,7 +22,7 @@ namespace RazorLogin.Repository
             List<MPersonne> ListMPersonnes = new List<MPersonne>();
 
             SqlCommand RequestGetPersonnes = activeConnexion.CreateCommand();
-            RequestGetPersonnes.CommandText = "Select * from personne";
+            RequestGetPersonnes.CommandText = "SELECT * FROM personne";
 
             SqlDataReader personnes = RequestGetPersonnes.ExecuteReader();
 
@@ -48,7 +48,7 @@ namespace RazorLogin.Repository
         public void addPersonne(MPersonne nouvellePersonne)
         {
             SqlCommand RequestAddPersonne = activeConnexion.CreateCommand();
-            RequestAddPersonne.CommandText = "Insert into personne (nomPersonne, prenomPersonne, mdp) VALUES (@nomPersonne,@prenomPersonne,@mdp)";
+            RequestAddPersonne.CommandText = "INSERT INTO personne (nomPersonne, prenomPersonne, mdp) VALUES (@nomPersonne,@prenomPersonne,@mdp)";
 
             SqlParameter nom = RequestAddPersonne.Parameters.Add("@nomPersonne", SqlDbType.VarChar);
             SqlParameter pnom = RequestAddPersonne.Parameters.Add("@prenomPersonne", SqlDbType.VarChar);
@@ -65,13 +65,34 @@ namespace RazorLogin.Repository
         public void deletePersonne(int idSuppr)
         {
             SqlCommand RequestDeletePersonne = activeConnexion.CreateCommand();
-            RequestDeletePersonne.CommandText = "DELETE from personne WHERE idPersonne = @idPersonne";
+            RequestDeletePersonne.CommandText = "DELETE FROM personne WHERE idPersonne = @idPersonne";
 
             SqlParameter id = RequestDeletePersonne.Parameters.Add("@idPersonne", SqlDbType.VarChar);
 
             id.Value = idSuppr;
 
             int result = RequestDeletePersonne.ExecuteNonQuery();
+        }
+
+        public void updatePersonne(MPersonne modifPersonne)
+        {
+            SqlCommand RequestUpdatePersonne = activeConnexion.CreateCommand();
+            RequestUpdatePersonne.CommandText = "UPDATE personne SET nomPersonne= @nomPersonne, prenomPersonne= @prenomPersonne, mdp = @mdp WHERE idPersonne == @idPersonne";
+
+
+            SqlParameter id = RequestUpdatePersonne.Parameters.Add("@idPersonne", SqlDbType.VarChar);
+            SqlParameter nom = RequestUpdatePersonne.Parameters.Add("@nomPersonne", SqlDbType.VarChar);
+            SqlParameter pnom = RequestUpdatePersonne.Parameters.Add("@prenomPersonne", SqlDbType.VarChar);
+            SqlParameter mdp = RequestUpdatePersonne.Parameters.Add("@mdp", SqlDbType.VarChar);
+
+          
+
+            id.Value = modifPersonne.idPersonne;
+            nom.Value = modifPersonne.nomPersonne;
+            pnom.Value = modifPersonne.prenomPersonne;
+            mdp.Value = modifPersonne.mdp;
+
+            int result = RequestUpdatePersonne.ExecuteNonQuery();
         }
     }
 }
