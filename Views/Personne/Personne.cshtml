@@ -5,15 +5,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Coucou.</p>
+    <h1 class="titreMain">Liste des personnes enregistrées</h1>
+    <ul>
     @foreach (var p in Model)
     {
-       <p>@p.nomPersonne @p.prenomPersonne 
-            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="@p.idPersonne">Effacer</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Modifier" asp-route-id="@p.idPersonne">Modifier</a>
-       </p>
+       <li class="listeP">
+            <span class="listeElem">@p.nomPersonne @p.prenomPersonne </span>
+            <div class="listeLien"><a class="link-warning" asp-area="" asp-controller="Personne" asp-action="Modifier" asp-route-id="@p.idPersonne">Modifier</a>
+            <a class="link-danger" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="@p.idPersonne">Effacer</a></div> 
+                 
+       </li>
     }
+    </ul>
 
-    <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Creer">Ajouter une personne</a>
+    <div>
+        <a class="link-success" asp-area="" asp-controller="Personne" asp-action="Creer">Ajouter une personne</a>
+    </div>
+   
 </div>

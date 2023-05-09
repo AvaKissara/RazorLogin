@@ -1,9 +1,55 @@
 html {
   font-size: 14px;
+  font-family:'Arial';
 }
 
-@media (min-width: 768px) {
-  html {
+h1.titreMain
+{
+    font-size: 2.5em;
+    margin-bottom: 3%;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+li.listeP {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1%;
+}
+
+li>div.listeLien {
+    display:inline-block;
+}
+
+span.listeElem {
+    font-weight: bold;
+    color:cornflowerblue;
+}
+
+div > a.link-success {
+    font-weight: bold;
+}
+
+div > a.link-success:is(:hover) {
+    color:yellowgreen;
+    text-decoration:underline;
+}
+
+    @media (min-width: 768px) {
+        html {
     font-size: 16px;
   }
 }
