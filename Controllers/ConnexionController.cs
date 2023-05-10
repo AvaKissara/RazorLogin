@@ -7,7 +7,7 @@ namespace RazorLogin.Controllers
 {
     public class ConnexionController : Controller
     {
-        MtConnexion test = new MtConnexion();
+        MtConnexion progConnexion = new MtConnexion();
         public IActionResult Connexion()
         {
             return View();
@@ -20,7 +20,7 @@ namespace RazorLogin.Controllers
             personneConnect.nomPersonne = nomPersonne;
             personneConnect.prenomPersonne = prenomPersonne;
             personneConnect.mdp = mdp;
-            test.connecter(personneConnect);
+            progConnexion.connecter(personneConnect);
             return View(personneConnect);
         }
     }

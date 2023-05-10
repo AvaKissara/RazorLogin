@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RazorLogin.Metier;
 using RazorLogin.Models;
 using RazorLogin.Repository;
 
@@ -8,6 +9,7 @@ namespace RazorLogin.Controllers
     {
         private readonly ILogger<PersonneController> _logger;
         RepMPersonne dataPersonnes = new RepMPersonne();
+        MtPersonne progPersonne= new MtPersonne();
 
         public PersonneController(ILogger<PersonneController> logger)
         {
@@ -42,6 +44,7 @@ namespace RazorLogin.Controllers
         public IActionResult Ajouter([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne nouvellePersonne)
         {
             ViewBag.Message = "Ajouter";
+            nouvellePersonne.mdp = progPersonne.hasherMdp(nouvellePersonne);
             this.addPersonne(nouvellePersonne);
             return RedirectToAction("Personne");
         }
