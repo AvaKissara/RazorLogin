@@ -6,10 +6,10 @@ namespace RazorLogin.Metier
     public class MtPersonne
     {
         RepMPersonne dataPersonnes = new RepMPersonne();
-        public Int32 hasherMdp(MPersonne personneAjoutee)
+        public string hasherMdp(MPersonne personneAjoutee)
         {
             Int32 mdpHashe = personneAjoutee.mdp.GetHashCode();  
-            return mdpHashe;
+            return mdpHashe.ToString();
         }
     }
 }

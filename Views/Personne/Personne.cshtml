@@ -15,7 +15,7 @@
     @foreach (var p in Model)
     {
        <li class="listeP">
-            <span class="listeElem">@p.nomPersonne @p.prenomPersonne </span>
+            <span class="listeElem">@p.nomPersonne @p.prenomPersonne @p.mdp </span>
             <div class="listeLien"><a class="link-warning" asp-area="" asp-controller="Personne" asp-action="Modifier" asp-route-id="@p.idPersonne">Modifier</a>
             <a class="link-danger toto" asp-area="" asp-controller="Personne" asp-action="Effacer" asp-route-id="@p.idPersonne">Effacer</a></div> 
                  
