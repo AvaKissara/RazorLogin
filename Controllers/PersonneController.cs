@@ -16,10 +16,10 @@ namespace RazorLogin.Controllers
 
         public IActionResult Personne(string retourText)
         {
-            if (retourText == "Ajouter")
-            {
-                ViewBag.Message ="HEY !!!!";
-            }
+            //if (retourText == "Ajouter")
+            //{
+            //    ViewBag.Message ="HEY !!!!";
+            //}
              
             IEnumerable<MPersonne> personnes = this.GetPersonnes();
             return View(personnes);
@@ -44,10 +44,7 @@ namespace RazorLogin.Controllers
             ViewBag.Message = "Ajouter";
             this.addPersonne(nouvellePersonne);
             return RedirectToAction("Personne");
-            //return View();
         }
-
-
 
 
         public void addPersonne(MPersonne nouvellePersonne)
@@ -69,21 +66,24 @@ namespace RazorLogin.Controllers
             return RedirectToAction("Personne");
         }
 
+        [HttpGet]
         public IActionResult Modifier(int id) 
-        {       
-          return View();
+        {
+          MPersonne modifPersonne = new MPersonne();
+          modifPersonne.idPersonne = id;  
+          return View(modifPersonne);
         }
 
         [HttpPost]
-        public IActionResult Enregistrer([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
+        public IActionResult Enregistrer([Bind("idPersonne,nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
         {
             dataPersonnes.updatePersonne(modifPersonne);
             return View();
         }
 
-        //public void updatePersonne(MPersonne modifPersonne)
-        //{
-        //    dataPersonnes.updatePersonne(modifPersonne);
-        //}
+        public IActionResult Connecter()
+        {
+            return View();
+        }
     }
 }

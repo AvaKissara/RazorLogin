@@ -77,12 +77,17 @@ namespace RazorLogin.Repository
         public void updatePersonne(MPersonne modifPersonne)
         {
             SqlCommand RequestUpdatePersonne = activeConnexion.CreateCommand();
-            RequestUpdatePersonne.CommandText = "UPDATE personne SET nomPersonne= @nomPersonne, prenomPersonne= @prenomPersonne, mdp = @mdp WHERE idPersonne == @idPersonne";
+            RequestUpdatePersonne.CommandText = "UPDATE personne SET nomPersonne= @nomPersonne, prenomPersonne= @prenomPersonne, mdp = @mdp WHERE idPersonne = @idPersonne";
 
+
+            SqlParameter id = RequestUpdatePersonne.Parameters.Add("@idPersonne", SqlDbType.VarChar);
             SqlParameter nom = RequestUpdatePersonne.Parameters.Add("@nomPersonne", SqlDbType.VarChar);
             SqlParameter pnom = RequestUpdatePersonne.Parameters.Add("@prenomPersonne", SqlDbType.VarChar);
             SqlParameter mdp = RequestUpdatePersonne.Parameters.Add("@mdp", SqlDbType.VarChar);
 
+          
+
+            id.Value = modifPersonne.idPersonne;
             nom.Value = modifPersonne.nomPersonne;
             pnom.Value = modifPersonne.prenomPersonne;
             mdp.Value = modifPersonne.mdp;

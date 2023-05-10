@@ -1,7 +1,8 @@
 ﻿@model MPersonne;
 
 
-<form asp-action="Connecter">
+<form asp-action="Logged">
+  
     <div>
         <label asp-for="nomPersonne">Nom</label>
         <input asp-for="nomPersonne" />
@@ -15,6 +16,6 @@
         <input asp-for="mdp" />
     </div>
     <div>
-        <input type="submit" value="login" class="btn btn-primary" />
+        <input type="submit" value="Connexion" name="btnConnexion" class="btn btn-primary" />
     </div>
 </form>
