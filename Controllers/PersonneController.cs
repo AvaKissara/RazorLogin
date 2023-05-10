@@ -14,8 +14,13 @@ namespace RazorLogin.Controllers
             _logger = logger;
         }
 
-        public IActionResult Personne()
+        public IActionResult Personne(string retourText)
         {
+            if (retourText == "Ajouter")
+            {
+                ViewBag.Message ="HEY !!!!";
+            }
+             
             IEnumerable<MPersonne> personnes = this.GetPersonnes();
             return View(personnes);
         }
@@ -36,9 +41,14 @@ namespace RazorLogin.Controllers
         [HttpPost]
         public IActionResult Ajouter([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne nouvellePersonne)
         {
+            ViewBag.Message = "Ajouter";
             this.addPersonne(nouvellePersonne);
-            return View();
+            return RedirectToAction("Personne");
+            //return View();
         }
+
+
+
 
         public void addPersonne(MPersonne nouvellePersonne)
         {
@@ -53,28 +63,27 @@ namespace RazorLogin.Controllers
         [HttpGet]
         public IActionResult Effacer(int id)
         {
+            ViewBag.Message = "Effacer";
             dataPersonnes.deletePersonne(id);
+            
             return RedirectToAction("Personne");
         }
 
         public IActionResult Modifier(int id) 
-        {
-           
+        {       
           return View();
         }
 
         [HttpPost]
         public IActionResult Enregistrer([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
         {
-            //MPersonne modifPersonne = new MPersonne();
-            //modifPersonne.idPersonne = id;
-            this.updatePersonne(modifPersonne);
+            dataPersonnes.updatePersonne(modifPersonne);
             return View();
         }
 
-        public void updatePersonne(MPersonne modifPersonne)
-        {
-            dataPersonnes.addPersonne(modifPersonne);
-        }
+        //public void updatePersonne(MPersonne modifPersonne)
+        //{
+        //    dataPersonnes.updatePersonne(modifPersonne);
+        //}
     }
 }

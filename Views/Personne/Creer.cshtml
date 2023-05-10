@@ -3,17 +3,21 @@
 <h1 class ="titreMain">Créer une entrée</h1>
 
 <form asp-action="Ajouter">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div>
         <label asp-for="nomPersonne">Nom</label>
         <input asp-for="nomPersonne" />
+        <span asp-validation-for="nomPersonne" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="prenomPersonne">Prénom</label>
         <input asp-for="prenomPersonne" />
+        <span asp-validation-for="prenomPersonne" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="mdp">MDP</label>
         <input asp-for="mdp" />
+        <span asp-validation-for="mdp" class="text-danger" type="password"></span>
     </div>
     <div>
         <input type="submit" value="Ajouter" class="btn btn-primary" />
