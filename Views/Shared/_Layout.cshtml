@@ -27,17 +27,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Connexion">Connexion</a>
-                        </li>
-                      
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Connexion">Connexion</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Personne">Liste des personnes</a>
                             </li>  
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Déconnexion</a>
                             </li>
-                         
+                        }
                     </ul>
                 </div>
             </div>

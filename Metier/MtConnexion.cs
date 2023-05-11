@@ -26,39 +26,18 @@ namespace RazorLogin.Metier
             _httpContextAccessor = httpContextAccessor;
             dataPersonnes = new RepMPersonne();
         }
-        private static byte[] HashMdp(string mdp)
+
+        public static bool DecrypterMdp(byte[] mdpHashe, byte[] mdp)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                return sha256.ComputeHash(Encoding.UTF8.GetBytes(mdp));
-            }
-        }
-        public static bool DecrypterMdp(string mdpHashe, string mdp)
-        {
-            byte[] mdpHashByte = Convert.FromBase64String(mdpHashe);
-            byte[] mdpByte = HashMdp(mdp);
-
-            if (mdpHashByte.Length != mdpByte.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < mdpHashByte.Length; i++)
-            {
-                if (mdpHashByte[i] != mdpByte[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
+       
+             return mdp.SequenceEqual(mdpHashe);
         }
         public bool Connecter(MPersonne personneConnect, HttpContext httpContext)
         {
             List<MPersonne> personnes = dataPersonnes.GetPersonnes();
             MPersonne personneTrouvee = personnes.FirstOrDefault(p => p.nomPersonne == personneConnect.nomPersonne && p.prenomPersonne == personneConnect.prenomPersonne);
 
-            if (personneTrouvee != null && personneTrouvee.mdp.SequenceEqual(personneConnect.mdp))
+            if (personneTrouvee != null && DecrypterMdp(personneTrouvee.mdp, personneConnect.mdp))
             {
                 // Créer une instance de ClaimsIdentity (type d'objet associé à l'utilisateur authentifié, stocke les Claim (déclaration sur l'identité d'un utilisateur))
                 var prerequis = new List<Claim>()

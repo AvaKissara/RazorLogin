@@ -2,6 +2,7 @@
 using RazorLogin.Models;
 using RazorLogin.Repository;
 using RazorLogin.Metier;
+using System.Text;
 
 namespace RazorLogin.Controllers
 {
@@ -15,14 +16,15 @@ namespace RazorLogin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logged(string nomPersonne, string prenomPersonne, byte[] mdp)
+        public IActionResult Logged(string nomPersonne, string prenomPersonne, string mdp)
         {
             var httpContext = ControllerContext.HttpContext;
             MPersonne personneConnect = new MPersonne();    
             personneConnect.nomPersonne = nomPersonne;
             personneConnect.prenomPersonne = prenomPersonne;
-            personneConnect.mdp = mdp;
 
+            byte[] mdpBytes = Encoding.UTF8.GetBytes(mdp);
+            personneConnect.mdp = MtPersonne.hasherMdp(mdpBytes);
             bool connecte = progConnexion.Connecter(personneConnect, httpContext);
 
             if (connecte)
