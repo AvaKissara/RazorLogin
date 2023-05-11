@@ -1,11 +1,5 @@
-﻿@model MPersonne;
-
-
-    @using Microsoft.AspNetCore.Identity
-    @using System.Security.Claims;
-
-
-
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,11 +30,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Connexion">Connexion</a>
                         </li>
-                     
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Personne">Liste des personnes</a>
-                        </li>  
-                          
+                      
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Personne">Liste des personnes</a>
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Déconnexion</a>
+                            </li>
+                         
                     </ul>
                 </div>
             </div>

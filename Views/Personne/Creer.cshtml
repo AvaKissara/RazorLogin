@@ -17,12 +17,22 @@
     <div>
         <label asp-for="mdp">MDP</label>
         <input asp-for="mdp" type="password" />
-        <span asp-validation-for="mdp" class="text-danger" ></span>
+        <span asp-validation-for="mdp" class="text-danger"></span>
     </div>
     <div>
-        <input type="submit" value="Ajouter" class="btn btn-primary" />
+        <input type="submit" value="Ajouter" onclick="return validateForm();" class="btn btn-primary" />
     </div>
     <div>
         <a asp-action="Personne">Revenir à la liste</a>
     </div>
 </form>
+
+<script>
+    function validateForm() {
+        var mdp = document.getElementById("mdp").value;
+        if (mdp == null || mdp == "") {
+            alert("Veuillez saisir un mot de passe.");
+            return false;
+        }
+    }
+</script>

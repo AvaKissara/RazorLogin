@@ -15,7 +15,7 @@ namespace RazorLogin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logged(string nomPersonne, string prenomPersonne, string mdp)
+        public IActionResult Logged(string nomPersonne, string prenomPersonne, byte[] mdp)
         {
             var httpContext = ControllerContext.HttpContext;
             MPersonne personneConnect = new MPersonne();    
@@ -31,8 +31,14 @@ namespace RazorLogin.Controllers
             }
             else
             {
-                return RedirectToAction("Connexion", "Connexion");
+                return RedirectToAction("Connexion");
             }
+        }
+
+        public IActionResult Deconnexion() 
+        {
+            progConnexion.Deconnecter(HttpContext);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

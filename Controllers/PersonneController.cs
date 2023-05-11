@@ -2,6 +2,7 @@
 using RazorLogin.Metier;
 using RazorLogin.Models;
 using RazorLogin.Repository;
+using System.Text;
 
 namespace RazorLogin.Controllers
 {
@@ -28,7 +29,7 @@ namespace RazorLogin.Controllers
         public IActionResult Personne()
         {
             IEnumerable<MPersonne> personnes = this.GetPersonnes();
-            return View("Personne", personnes);
+            return View(personnes);
         }
 
         public IActionResult Creer()
@@ -39,8 +40,10 @@ namespace RazorLogin.Controllers
         [HttpPost]
         public IActionResult Ajouter([Bind("nomPersonne,prenomPersonne,mdp")] MPersonne nouvellePersonne)
         {
-            ViewBag.Message = "Ajouter";
-            nouvellePersonne.mdp = progPersonne.hasherMdp(nouvellePersonne);
+            string mdp = Request.Form["mdp"];
+            byte[] mdpBytes = Encoding.UTF8.GetBytes(mdp);
+
+            nouvellePersonne.mdp = MtPersonne.hasherMdp(mdpBytes);
             this.addPersonne(nouvellePersonne);
             return RedirectToAction("Personne");
         }
@@ -75,7 +78,9 @@ namespace RazorLogin.Controllers
         [HttpPost]
         public IActionResult Enregistrer([Bind("idPersonne,nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
         {
-           modifPersonne.mdp = progPersonne.hasherMdp(modifPersonne);
+            string mdp = Request.Form["mdp"];
+            byte[] mdpBytes = Encoding.UTF8.GetBytes(mdp);
+            modifPersonne.mdp = MtPersonne.hasherMdp(mdpBytes);
            this.updatePersonne(modifPersonne);
            return View();
         }

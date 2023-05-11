@@ -1,6 +1,7 @@
 ﻿using RazorLogin.Models;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace RazorLogin.Repository
 {
@@ -34,7 +35,9 @@ namespace RazorLogin.Repository
                 unePersonne.idPersonne = personnes.GetInt32(0);
                 unePersonne.nomPersonne = $"{personnes[1]}";
                 unePersonne.prenomPersonne = $"{personnes[2]}";
-                unePersonne.mdp = $"{personnes[3]}";
+                byte[] mdpBytes = new byte[(personnes.GetBytes(3, 0, null, 0, 1))];
+                personnes.GetBytes(3, 0, mdpBytes, 0, mdpBytes.Length);
+                unePersonne.mdp = mdpBytes;
                 ListMPersonnes.Add(unePersonne);
             }
 
@@ -53,7 +56,7 @@ namespace RazorLogin.Repository
 
             SqlParameter nom = RequestAddPersonne.Parameters.Add("@nomPersonne", SqlDbType.VarChar);
             SqlParameter pnom = RequestAddPersonne.Parameters.Add("@prenomPersonne", SqlDbType.VarChar);
-            SqlParameter mdp = RequestAddPersonne.Parameters.Add("@mdp", SqlDbType.VarChar);
+            SqlParameter mdp = RequestAddPersonne.Parameters.Add("@mdp", SqlDbType.VarBinary);
 
             nom.Value = nouvellePersonne.nomPersonne;
             pnom.Value = nouvellePersonne.prenomPersonne;
@@ -84,7 +87,7 @@ namespace RazorLogin.Repository
             SqlParameter id = RequestUpdatePersonne.Parameters.Add("@idPersonne", SqlDbType.VarChar);
             SqlParameter nom = RequestUpdatePersonne.Parameters.Add("@nomPersonne", SqlDbType.VarChar);
             SqlParameter pnom = RequestUpdatePersonne.Parameters.Add("@prenomPersonne", SqlDbType.VarChar);
-            SqlParameter mdp = RequestUpdatePersonne.Parameters.Add("@mdp", SqlDbType.VarChar);
+            SqlParameter mdp = RequestUpdatePersonne.Parameters.Add("@mdp", SqlDbType.VarBinary);
 
           
 
