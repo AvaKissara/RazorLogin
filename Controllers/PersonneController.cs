@@ -16,16 +16,6 @@ namespace RazorLogin.Controllers
             _logger = logger;
         }
 
-        public IActionResult Personne(string retourText)
-        {
-            //if (retourText == "Ajouter")
-            //{
-            //    ViewBag.Message ="HEY !!!!";
-            //}
-             
-            IEnumerable<MPersonne> personnes = this.GetPersonnes();
-            return View(personnes);
-        }
 
         public List<MPersonne> GetPersonnes()
         {
@@ -33,7 +23,13 @@ namespace RazorLogin.Controllers
             personnes = dataPersonnes.GetPersonnes();
 
             return personnes;
-        }  
+        }
+
+        public IActionResult Personne()
+        {
+            IEnumerable<MPersonne> personnes = this.GetPersonnes();
+            return View("Personne", personnes);
+        }
 
         public IActionResult Creer()
         {
@@ -63,7 +59,6 @@ namespace RazorLogin.Controllers
         [HttpGet]
         public IActionResult Effacer(int id)
         {
-            ViewBag.Message = "Effacer";
             dataPersonnes.deletePersonne(id);
             
             return RedirectToAction("Personne");
@@ -80,8 +75,14 @@ namespace RazorLogin.Controllers
         [HttpPost]
         public IActionResult Enregistrer([Bind("idPersonne,nomPersonne,prenomPersonne,mdp")] MPersonne modifPersonne)
         {
+           modifPersonne.mdp = progPersonne.hasherMdp(modifPersonne);
+           this.updatePersonne(modifPersonne);
+           return View();
+        }
+
+        public void updatePersonne(MPersonne modifPersonne) 
+        {
             dataPersonnes.updatePersonne(modifPersonne);
-            return View();
         }
 
         public IActionResult Connecter()

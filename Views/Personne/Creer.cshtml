@@ -16,10 +16,13 @@
     </div>
     <div>
         <label asp-for="mdp">MDP</label>
-        <input asp-for="mdp" />
-        <span asp-validation-for="mdp" class="text-danger" type="password"></span>
+        <input asp-for="mdp" type="password" />
+        <span asp-validation-for="mdp" class="text-danger" ></span>
     </div>
     <div>
         <input type="submit" value="Ajouter" class="btn btn-primary" />
+    </div>
+    <div>
+        <a asp-action="Personne">Revenir à la liste</a>
     </div>
 </form>

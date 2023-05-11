@@ -2,24 +2,58 @@
 using RazorLogin.Repository;
 using RazorLogin.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+
 
 namespace RazorLogin.Metier
 {
     public class MtConnexion
     {
-        RepMPersonne dataPersonnes = new RepMPersonne();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly RepMPersonne dataPersonnes;
 
-        public void connecter(MPersonne personneConnect)
+        public MtConnexion()
         {
-            List<MPersonne> personnes = new List<MPersonne>();
-            personnes = dataPersonnes.GetPersonnes();
-            MPersonne unePersonne = new MPersonne();
+            dataPersonnes = new RepMPersonne();
+        }
 
-            if (personnes.Any(personne => personne.nomPersonne == personneConnect.nomPersonne) && personnes.Any(personne => personne.prenomPersonne== personneConnect.prenomPersonne) && personnes.Any(personne => personne.mdp == personneConnect.mdp)) 
+        public MtConnexion(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            dataPersonnes = new RepMPersonne();
+        }
+
+        public bool Connecter(MPersonne personneConnect, HttpContext httpContext)
+        {
+            List<MPersonne> personnes = dataPersonnes.GetPersonnes();
+            bool utilisateurExiste = personnes.Any(p => p.nomPersonne == personneConnect.nomPersonne && p.prenomPersonne == personneConnect.prenomPersonne && p.mdp== personneConnect.mdp);
+
+            if (utilisateurExiste)
             {
-                unePersonne = personnes.Find(personne => personne.nomPersonne == personneConnect.nomPersonne);
+                // Créer une instance de ClaimsIdentity (type d'objet associé à l'utilisateur authentifié, stocke les Claim (déclaration sur l'identité d'un utilisateur))
+                var prerequis = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Name, personneConnect.nomPersonne + " " + personneConnect.prenomPersonne)
+                };
+                var claimsIdentity = new ClaimsIdentity(prerequis, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Créer une instance de AuthenticationProperties (définit les propriétés associées à une demande d'authentification) et y ajouter des propriétés
+                var authProperties = new AuthenticationProperties()
+                {
+                    IsPersistent = true,
+                   // durée de validité d'une authentification
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+                };
+
+                // Connexion de l'utilisateur
+                httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties).Wait();
+
+                return true;    
             }
 
+            return false;
         }
     }
 }

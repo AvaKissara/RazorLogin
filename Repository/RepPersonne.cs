@@ -17,6 +17,8 @@ namespace RazorLogin.Repository
             Connexion con = new Connexion();
             this.activeConnexion = con.GetConnexion();
         }
+
+
         public List<MPersonne> GetPersonnes()
         {
             List<MPersonne> ListMPersonnes = new List<MPersonne>();
@@ -38,7 +40,6 @@ namespace RazorLogin.Repository
 
             // Fermeture de la connexion
             this.activeConnexion.Close();
-
 
             return ListMPersonnes;
         }

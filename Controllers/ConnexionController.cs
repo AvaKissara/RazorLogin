@@ -7,6 +7,7 @@ namespace RazorLogin.Controllers
 {
     public class ConnexionController : Controller
     {
+
         MtConnexion progConnexion = new MtConnexion();
         public IActionResult Connexion()
         {
@@ -16,12 +17,22 @@ namespace RazorLogin.Controllers
         [HttpPost]
         public IActionResult Logged(string nomPersonne, string prenomPersonne, string mdp)
         {
+            var httpContext = ControllerContext.HttpContext;
             MPersonne personneConnect = new MPersonne();    
             personneConnect.nomPersonne = nomPersonne;
             personneConnect.prenomPersonne = prenomPersonne;
             personneConnect.mdp = mdp;
-            progConnexion.connecter(personneConnect);
-            return View(personneConnect);
+
+            bool connecte = progConnexion.Connecter(personneConnect, httpContext);
+
+            if (connecte)
+            {
+                return View(personneConnect);
+            }
+            else
+            {
+                return RedirectToAction("Connexion", "Connexion");
+            }
         }
     }
 }

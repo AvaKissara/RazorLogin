@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace RazorLogin
 {
     public class Program
@@ -8,6 +10,18 @@ namespace RazorLogin
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.LoginPath = "/Connexion/Connexion";
+                    options.AccessDeniedPath = "/Home/AccessDenied";
+                });
+
+             builder.Services.AddHttpContextAccessor();
+
 
             var app = builder.Build();
 
@@ -20,9 +34,12 @@ namespace RazorLogin
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

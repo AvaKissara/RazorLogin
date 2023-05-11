@@ -1,16 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Personnes Page";
     @model IEnumerable<MPersonne>;
-    var msgValid = ViewBag.Message;
-
 }
+
 
 <div class="text-center">
     <h1 class="titreMain">Liste des personnes enregistrées</h1>
-      @if (!string.IsNullOrEmpty(msgValid))
-    {
-        <div class="alert alert-success">@msgValid</div>
-    }
+      
     <ul>
     @foreach (var p in Model)
     {

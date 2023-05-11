@@ -1,9 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@model MPersonne;
+
+
+    @using Microsoft.AspNetCore.Identity
+    @using System.Security.Claims;
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BBiblio</title>
+    <title>@ViewData["Title"] - RazorLogin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -25,11 +34,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Personne">Liste des personnes</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Connexion" asp-action="Connexion">Connexion</a>
                         </li>
+                     
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Personne" asp-action="Personne">Liste des personnes</a>
+                        </li>  
+                          
                     </ul>
                 </div>
             </div>
@@ -43,7 +54,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Login - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - RazorLogin - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
